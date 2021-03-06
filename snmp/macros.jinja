@@ -4,14 +4,14 @@
 {%- macro v12c_communities(mode, proto='') -%}
   {% set communities = conf.get(mode+'communities'+proto, []) -%}
   {%- for community in communities %}
-    {%- if isinstance(communities, dict) and communities.get(community, {}) is  mapping %}
+    {%- if communities is mapping and communities.get(community, {}) is  mapping %}
       {%- set source = communities.get(community).get('source', '') %}
       {%- set view = communities.get(community).get('view', None) %}
     {%- else %}
       {%- set source = '' %}
       {%- set view = '' %}
     {%- endif %}
-    {%- if not isinstance(source, (tuple, list)) %}
+    {%- if source is not sequence or source is mapping or source is string %}
       {%- set source = [source] %}
     {%- endif %}
     {%- for src in source -%}
